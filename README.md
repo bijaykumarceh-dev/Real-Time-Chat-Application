@@ -44,6 +44,10 @@ online, view typing indicators, and see read receipts on their messages.
 |   |-- App.jsx             # Authentication and chat interface
 |   |-- main.jsx            # React entry point
 |   `-- styles.css          # Responsive application styles
+|-- mobile/
+|   |-- lib/                # Flutter chat screens and API/Socket.IO client
+|   |-- test/               # Flutter model tests
+|   `-- README.md           # Mobile setup and APK build instructions
 |-- test/
 |   `-- server.test.js      # HTTP, auth, persistence, and Socket.IO tests
 |-- .env.example            # Local environment variable template

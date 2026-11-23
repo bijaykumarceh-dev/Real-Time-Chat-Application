@@ -101,7 +101,13 @@ function createChatServer(options = {}) {
   }
 
   function requireAuth(request, response, next) {
-    const token = request.cookies?.[AUTH_COOKIE];
+    const authorization = request.get("authorization");
+    const bearerToken =
+      typeof authorization === "string" &&
+      authorization.startsWith("Bearer ")
+        ? authorization.slice("Bearer ".length).trim()
+        : "";
+    const token = bearerToken || request.cookies?.[AUTH_COOKIE];
     if (!token) {
       response.status(401).json({ error: "Authentication required." });
       return;
@@ -206,7 +212,13 @@ function createChatServer(options = {}) {
   });
 
   app.post("/api/auth/logout", (request, response) => {
-    const token = request.cookies?.[AUTH_COOKIE];
+    const authorization = request.get("authorization");
+    const bearerToken =
+      typeof authorization === "string" &&
+      authorization.startsWith("Bearer ")
+        ? authorization.slice("Bearer ".length).trim()
+        : "";
+    const token = bearerToken || request.cookies?.[AUTH_COOKIE];
     let userId;
     if (token) {
       try {
